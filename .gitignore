@@ -1,0 +1,6 @@
+# Ignore drawings folders
+drawings/*
+!drawings/491204
+
+# Ignore that terrible notebook save file
+.ipynb_checkpoints
