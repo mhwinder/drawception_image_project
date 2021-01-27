@@ -29,11 +29,12 @@ Scraping drawception occurs in 3 stages. The first step is to collect the url's 
 |LOVE|int| drawception.com |Number of LOVE reactions this drawing recieved| 
 |DUCK|int| drawception.com |Number of DUCK reactions this drawing recieved| 
 |REACT|int| drawception.com | Total number of reactions this drawing recieved| 
+|bin|int| drawception.com | Bin for reactions 0, 1-3, 4+| 
 
 
 ## Analysis
 
-I created a convolutional neural network to predict the total number of reactions an image would recieve.
+I made a Convolutional Neural Network to predict the reactions. Because of the large amount of data I needed to create a generator function to load the images in batches and convert them to numpy arrays. I also reduced the image resolution by half, to speed up the processing. I tried modeling in two different ways: doing a regression on the REACT variable, and a classification on the bin variable. Each network was constructed in the same way and only the output layer was changed. The most successful model took 8 hours to fit, had 2 convolution layers, 2 dense layers and 2 dropout layers.
 
 ### A Boar in the Matrix
 ![Figure: Mouseover text](/drawings/491204/QZVgV14ncW.png)
@@ -41,7 +42,9 @@ I created a convolutional neural network to predict the total number of reaction
 
 ## Conclusion and Recommendation
 
+Neither model performed well. Both models predicted 0 reactions almost exclusivly with only slight variations. The slight variations may have been marginally better but art is subjective and the metrics were terrible. The classification model predicted bin 0, accuracy 28.7%, which was actually worse than the baseline which was bin 1, 50.3%. The regression model had an r2 score of -0.44. The model would have benefitted greatly from more convolution layers and processing power to compute them.
 
+I also had hoped to use the caption information and NLP to generate captions on images. I did use the captions in a script to find interesting images from the dataset. It takes a string and locates all the images that contain the string in their captions and it displays the one with the highst reaction total.
 
 ## Sources
 
